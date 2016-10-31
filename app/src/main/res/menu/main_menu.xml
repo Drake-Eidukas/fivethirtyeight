@@ -1,0 +1,17 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="schemas.android.com/tools"
+    tools:context="io.eidukas.fivethirtyeight.MainActivity">
+    <item
+        android:id="@+id/action_refresh"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_refresh_white_24dp"
+        android:title="@string/refresh"/>
+    <item
+        android:id="@+id/action_settings"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_settings_white_24dp"
+        android:title="@string/action_settings"
+        />
+
+</menu>

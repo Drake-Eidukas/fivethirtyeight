@@ -1,0 +1,39 @@
+<resources>
+    <string name="app_name">Election Tracker</string>
+    <string name="refresh">Refresh</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="plus">Polls-Plus Model</string>
+    <string name="now">Now-Cast Model</string>
+    <string name="polls">Polls-Only Model</string>
+    <string name="winprob">Win-Probability</string>
+    <string name="forecast">Forecasted Vote Percentage</string>
+    <string name="hi">Maximum Predicted Vote Percentage</string>
+    <string name="lo">Minimum Predicted Vote Percentage</string>
+
+    <string name="apply">Apply</string>
+    <string name="cancel">Cancel</string>
+
+    <string name="preferences_file">Preferences_File</string>
+    <string name="model_tag">modelId</string>
+    <string name="preference_tag">preferenceId</string>
+    <string name="sort_tag">sortId</string>
+
+    <string name="percent_string">%.2f%%</string>
+    <string name="loading_string">Loading &#8230;</string>
+    <string name="api_url">http://projects.fivethirtyeight.com/2016-election-forecast/summary.json</string>
+
+    <string name="internet_title">Permission Explanation</string>
+    <string name="internet_explanation">We need this permission so we can fetch election data!</string>
+    <string name="json_cache_filename">last_json_result.txt</string>
+
+    <string name="sort_title">Choose sorting method:</string>
+    <string name="alphabetic">Sort list by state alphabetically</string>
+    <string name="candidate">Sort list by candidate</string>
+    <string name="probability">Sort list by probability to win</string>
+    <string name="trump">Trump</string>
+    <string name="clinton">Clinton</string>
+    <string name="mcmullin">McMullin</string>
+    <string name="johnson">Johnson</string>
+
+</resources>
