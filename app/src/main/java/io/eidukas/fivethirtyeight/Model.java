@@ -15,4 +15,9 @@ public class Model {
         return leader;
     }
 
+    public Model(double probability, String leader){
+        this.leader = leader;
+        this.probability = probability;
+    }
+
 }

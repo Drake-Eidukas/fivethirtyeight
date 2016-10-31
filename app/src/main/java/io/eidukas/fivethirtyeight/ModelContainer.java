@@ -20,4 +20,10 @@ public class ModelContainer {
         return polls;
     }
 
+    public ModelContainer(Model plus, Model now, Model polls){
+        this.plus = plus;
+        this.now = now;
+        this.polls = polls;
+    }
+
 }
