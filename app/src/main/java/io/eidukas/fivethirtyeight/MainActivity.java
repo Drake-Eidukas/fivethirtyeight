@@ -19,6 +19,11 @@ import android.widget.Toast;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import io.eidukas.fivethirtyeight.Models.Models;
+import io.eidukas.fivethirtyeight.Models.ProbabilityItem;
+import io.eidukas.fivethirtyeight.Models.ProbabilityObject;
+import io.eidukas.fivethirtyeight.Models.SortType;
+
 public class MainActivity extends AppCompatActivity implements SettingsDialog.NoticeDialogListener {
     private Bundle settings = new Bundle();
     private String PREFS_NAME;

@@ -1,4 +1,6 @@
-package io.eidukas.fivethirtyeight;
+package io.eidukas.fivethirtyeight.Models;
+
+import io.eidukas.fivethirtyeight.StateEncoder;
 
 /**
  * Wrapper object for the json response. This returns the probability and candidate for a specified model (Polls-plus, nowcast, and polls only).

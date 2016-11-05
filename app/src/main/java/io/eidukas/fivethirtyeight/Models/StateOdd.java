@@ -1,4 +1,4 @@
-package io.eidukas.fivethirtyeight;
+package io.eidukas.fivethirtyeight.Models;
 
 /**
  * Just another container in the pojo decomposition.

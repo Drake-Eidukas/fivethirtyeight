@@ -3,6 +3,11 @@ package io.eidukas.fivethirtyeight;
 import org.junit.Before;
 import org.junit.Test;
 
+import io.eidukas.fivethirtyeight.Models.Model;
+import io.eidukas.fivethirtyeight.Models.ModelContainer;
+import io.eidukas.fivethirtyeight.Models.Models;
+import io.eidukas.fivethirtyeight.Models.ProbabilityItem;
+
 import static org.junit.Assert.*;
 
 
@@ -21,7 +26,7 @@ public class ProbabilityItemTest {
     private final String secondSTate ="HI";
     @Before
     public void init(){
-        originalItem = new ProbabilityItem(firstState, new ModelContainer(new Model(p1, trump), new Model(p2, trump), new Model(p3, clinton)),Models.PLUS);
+        originalItem = new ProbabilityItem(firstState, new ModelContainer(new Model(p1, trump), new Model(p2, trump), new Model(p3, clinton)), Models.PLUS);
         updatedItem = new ProbabilityItem(secondSTate, new ModelContainer(new Model(p4, clinton), new Model(p5, clinton), new Model(p6, trump)),Models.NOW);
     }
 

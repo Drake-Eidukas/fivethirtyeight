@@ -1,4 +1,4 @@
-package io.eidukas.fivethirtyeight;
+package io.eidukas.fivethirtyeight.Models;
 
 /**
  * POJO class for holding the probability data for all 3 models in the json response.

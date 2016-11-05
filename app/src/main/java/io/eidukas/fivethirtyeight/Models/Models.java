@@ -1,4 +1,4 @@
-package io.eidukas.fivethirtyeight;
+package io.eidukas.fivethirtyeight.Models;
 
 /**
  * Enum representing each of the options for the models to choose from for populating the listview.

@@ -1,4 +1,4 @@
-package io.eidukas.fivethirtyeight;
+package io.eidukas.fivethirtyeight.Models;
 
 /**
  * Enum representing the different ways that the data can be sorted in the listview.

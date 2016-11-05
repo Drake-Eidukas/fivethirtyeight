@@ -1,4 +1,4 @@
-package io.eidukas.fivethirtyeight;
+package io.eidukas.fivethirtyeight.Models;
 
 
 import com.google.gson.Gson;

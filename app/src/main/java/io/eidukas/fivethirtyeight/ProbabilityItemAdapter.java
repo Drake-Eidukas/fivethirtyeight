@@ -13,6 +13,9 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Comparator;
 
+import io.eidukas.fivethirtyeight.Models.ProbabilityItem;
+import io.eidukas.fivethirtyeight.Models.SortType;
+
 import static java.lang.Math.round;
 
 public class ProbabilityItemAdapter extends ArrayAdapter<ProbabilityItem> {

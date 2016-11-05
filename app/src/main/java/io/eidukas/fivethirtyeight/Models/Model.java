@@ -1,4 +1,4 @@
-package io.eidukas.fivethirtyeight;
+package io.eidukas.fivethirtyeight.Models;
 
 /**
  * Inner-most POJO object from the api, holds the name of the most likely candidate to win and their probability to win.
