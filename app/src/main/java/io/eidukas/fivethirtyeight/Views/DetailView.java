@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -23,10 +24,11 @@ public class DetailView extends android.support.v4.app.Fragment {
     private ListView listView;
     private ArrayList<PartyItem> data;
     private MainActivity activity;
+    private String state="";
+    private TextView stateView;
     private boolean isVertical;
 
     public DetailView() {
-
     }
 
     @Override
@@ -58,6 +60,8 @@ public class DetailView extends android.support.v4.app.Fragment {
         if(getArguments() != null) {
             data = getArguments().getParcelableArrayList(activity.getResources().getString(R.string.probability_item_bundle_arg));
         }
+        stateView = (TextView)view.findViewById(R.id.detail_state_name_id);
+        stateView.setText(state);
         return view;
     }
 
@@ -71,6 +75,10 @@ public class DetailView extends android.support.v4.app.Fragment {
             data = getArguments().getParcelableArrayList(activity.getResources().getString(R.string.probability_item_bundle_arg));
         }
         initializeListView();
+    }
+
+    public void setState(String state){
+        this.state = state;
     }
 
     private void initializeListView(){
@@ -93,5 +101,6 @@ public class DetailView extends android.support.v4.app.Fragment {
         this.data = data;
         adapter.clear();
         adapter.addAll(data);
+        stateView.setText(state);
     }
 }

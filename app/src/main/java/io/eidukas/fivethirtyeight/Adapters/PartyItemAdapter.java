@@ -61,10 +61,10 @@ public class PartyItemAdapter extends ArrayAdapter<PartyItem>{
                 colorid = android.R.color.holo_purple;
                 break;
             case "Johnson":
-                colorid = R.color.yellow;
+                colorid = R.color.gold;
                 break;
             default:
-                colorid = android.R.color.white;
+                colorid = R.color.cards;
                 break;
         }
         convertView.setBackground(new ColorDrawable(ContextCompat.getColor(getContext(), colorid)));
@@ -85,7 +85,7 @@ public class PartyItemAdapter extends ArrayAdapter<PartyItem>{
                     public int compare(PartyItem partyItem, PartyItem t1) {
                         int compare = partyItem.getCandidate().compareTo(t1.getCandidate());
                         if (compare == 0){
-                            compare = ((Double)partyItem.getWinShare()).compareTo(t1.getWinShare());
+                            compare = -1 * ((Double)partyItem.getWinShare()).compareTo(t1.getWinShare());
                         }
                         return compare;
                     }
@@ -95,7 +95,7 @@ public class PartyItemAdapter extends ArrayAdapter<PartyItem>{
                 sorter = new Comparator<PartyItem>() {
                     @Override
                     public int compare(PartyItem partyitem, PartyItem t1) {
-                        int compare = ((Double)partyitem.getWinShare()).compareTo(t1.getWinShare());
+                        int compare = -1 * ((Double)partyitem.getWinShare()).compareTo(t1.getWinShare());
                         if (compare == 0){
                             compare = partyitem.getCandidate().compareTo(t1.getCandidate());
                         }

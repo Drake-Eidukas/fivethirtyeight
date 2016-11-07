@@ -58,10 +58,10 @@ public class ProbabilityItemAdapter extends ArrayAdapter<ProbabilityItem> {
                 colorid = android.R.color.holo_purple;
                 break;
             case "Johnson":
-                colorid = R.color.yellow;
+                colorid = R.color.gold;
                 break;
             default:
-                colorid = android.R.color.white;
+                colorid = R.color.cards;
                 break;
         }
         convertView.setBackground(new ColorDrawable(ContextCompat.getColor(getContext(), colorid)));
@@ -80,7 +80,7 @@ public class ProbabilityItemAdapter extends ArrayAdapter<ProbabilityItem> {
                 sorter = new Comparator<ProbabilityItem>() {
                     @Override
                     public int compare(ProbabilityItem probabilityItem, ProbabilityItem t1) {
-                        int compare = ((Double)probabilityItem.getProbability()).compareTo(t1.getProbability());
+                        int compare = -1 * ((Double)probabilityItem.getProbability()).compareTo(t1.getProbability());
                         if (compare == 0){
                             compare = probabilityItem.getState().compareTo(t1.getState());
                         }
@@ -100,7 +100,7 @@ public class ProbabilityItemAdapter extends ArrayAdapter<ProbabilityItem> {
                             compare = probabilityItem.getState().compareTo(t1.getState());
                         }
                         if (compare == 0){
-                            compare = ((Double)probabilityItem.getProbability()).compareTo(t1.getProbability());
+                            compare = -1 * ((Double)probabilityItem.getProbability()).compareTo(t1.getProbability());
                         }
                         return compare;
                     }
@@ -112,7 +112,7 @@ public class ProbabilityItemAdapter extends ArrayAdapter<ProbabilityItem> {
                     public int compare(ProbabilityItem probabilityItem, ProbabilityItem t1) {
                         int compare = probabilityItem.getState().compareTo(t1.getState());
                         if (compare == 0){
-                            compare = ((Double)probabilityItem.getProbability()).compareTo(t1.getProbability());
+                            compare = -1 * ((Double)probabilityItem.getProbability()).compareTo(t1.getProbability());
                         }
                         if (compare == 0){
                             compare = probabilityItem.getCandidate().compareTo(t1.getCandidate());

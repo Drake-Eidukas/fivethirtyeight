@@ -189,11 +189,12 @@ public class MainActivity extends AppCompatActivity implements SettingsDialog.No
         }
     }
 
-    public void updateDetailView(ArrayList<PartyItem> data){
+    public void updateDetailView(ArrayList<PartyItem> data, String state){
         Bundle bundle = new Bundle();
         bundle.putParcelableArrayList(getResources().getString(R.string.probability_item_bundle_arg), data);
         if(isVertical){
             detailFragment = new DetailView();
+            detailFragment.setState(state);
             detailFragment.setArguments(bundle);
             getSupportFragmentManager()
                     .beginTransaction()
@@ -202,6 +203,7 @@ public class MainActivity extends AppCompatActivity implements SettingsDialog.No
                     .commit();
             detailCurrent = true;
         } else{
+            detailFragment.setState(state);
             detailFragment.setData(data);
         }
 
