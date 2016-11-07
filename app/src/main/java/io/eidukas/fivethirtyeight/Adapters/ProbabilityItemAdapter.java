@@ -1,4 +1,4 @@
-package io.eidukas.fivethirtyeight;
+package io.eidukas.fivethirtyeight.Adapters;
 
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
@@ -15,6 +15,7 @@ import java.util.Comparator;
 
 import io.eidukas.fivethirtyeight.Models.ProbabilityItem;
 import io.eidukas.fivethirtyeight.Models.SortType;
+import io.eidukas.fivethirtyeight.R;
 
 import static java.lang.Math.round;
 
@@ -72,7 +73,7 @@ public class ProbabilityItemAdapter extends ArrayAdapter<ProbabilityItem> {
 
     /**
      * Given sorting enum, sort list, then refresh the listview.
-     * @param type
+     * @param type Sorting method
      */
     public void sortData(SortType type){
         Comparator<ProbabilityItem> sorter;
@@ -81,9 +82,14 @@ public class ProbabilityItemAdapter extends ArrayAdapter<ProbabilityItem> {
                 sorter = new Comparator<ProbabilityItem>() {
                     @Override
                     public int compare(ProbabilityItem probabilityItem, ProbabilityItem t1) {
-                        Double p1 = probabilityItem.getProbability();
-                        int compare = p1.compareTo(t1.getProbability());
-                        return -1 * ((compare == 0)? probabilityItem.getState().compareTo(t1.getState()) : compare);
+                        int compare = ((Double)probabilityItem.getProbability()).compareTo(t1.getProbability());
+                        if (compare == 0){
+                            compare = probabilityItem.getState().compareTo(t1.getState());
+                        }
+                        if (compare == 0){
+                            compare = probabilityItem.getCandidate().compareTo(t1.getCandidate());
+                        }
+                        return compare;
                     }
                 };
                 break;
@@ -92,7 +98,13 @@ public class ProbabilityItemAdapter extends ArrayAdapter<ProbabilityItem> {
                     @Override
                     public int compare(ProbabilityItem probabilityItem, ProbabilityItem t1) {
                         int compare = probabilityItem.getCandidate().compareTo(t1.getCandidate());
-                        return (compare == 0)? probabilityItem.getState().compareTo(t1.getState()) : compare;
+                        if (compare == 0){
+                            compare = probabilityItem.getState().compareTo(t1.getState());
+                        }
+                        if (compare == 0){
+                            compare = ((Double)probabilityItem.getProbability()).compareTo(t1.getProbability());
+                        }
+                        return compare;
                     }
                 };
                 break;
@@ -100,7 +112,14 @@ public class ProbabilityItemAdapter extends ArrayAdapter<ProbabilityItem> {
                 sorter = new Comparator<ProbabilityItem>() {
                     @Override
                     public int compare(ProbabilityItem probabilityItem, ProbabilityItem t1) {
-                        return probabilityItem.getState().compareTo(t1.getState());
+                        int compare = probabilityItem.getState().compareTo(t1.getState());
+                        if (compare == 0){
+                            compare = ((Double)probabilityItem.getProbability()).compareTo(t1.getProbability());
+                        }
+                        if (compare == 0){
+                            compare = probabilityItem.getCandidate().compareTo(t1.getCandidate());
+                        }
+                        return compare;
                     }
                 };
                 break;
