@@ -1,110 +1,97 @@
 package io.eidukas.fivethirtyeight.Views;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
-import android.app.Fragment;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
+import java.util.ArrayList;
+
+import io.eidukas.fivethirtyeight.Adapters.PartyItemAdapter;
+import io.eidukas.fivethirtyeight.Models.Models;
+import io.eidukas.fivethirtyeight.Models.PartyItem;
+import io.eidukas.fivethirtyeight.Models.SortType;
 import io.eidukas.fivethirtyeight.R;
 
+import static android.content.res.Configuration.ORIENTATION_LANDSCAPE;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link DetailView.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link DetailView#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class DetailView extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+public class DetailView extends android.support.v4.app.Fragment {
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    private OnFragmentInteractionListener mListener;
+    private PartyItemAdapter adapter;
+    private ListView listView;
+    private ArrayList<PartyItem> data;
+    private MainActivity activity;
+    private boolean isVertical;
 
     public DetailView() {
-        // Required empty public constructor
-    }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment DetailView.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static DetailView newInstance(String param1, String param2) {
-        DetailView fragment = new DetailView();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        data = new ArrayList<>();
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view;
+        switch(getResources().getConfiguration().orientation){
+            case ORIENTATION_LANDSCAPE:
+                view= inflater.inflate(R.layout.fragment_detail_view_horizontal, null);
+                isVertical = false;
+                break;
+            default:
+                view= inflater.inflate(R.layout.fragment_detail_view, null);
+                isVertical = true;
+                break;
         }
+        listView = (ListView)view.findViewById(R.id.detail_view_list_id);
+
+        if(activity == null){
+            activity = (MainActivity)getActivity();
+            initializeListView();
+        }
+        if(getArguments() != null) {
+            data = getArguments().getParcelableArrayList(activity.getResources().getString(R.string.probability_item_bundle_arg));
+        }
+        return view;
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_detail_view, container, false);
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        activity = (MainActivity)getActivity();
+        if(getArguments() == null){
+            data = new ArrayList<>();
+        }else {
+            data = getArguments().getParcelableArrayList(activity.getResources().getString(R.string.probability_item_bundle_arg));
         }
+        initializeListView();
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+    private void initializeListView(){
+        adapter = new PartyItemAdapter(activity, data);
+        listView.setAdapter(adapter);
+    }
+
+    public void sortAdapterData(SortType sort){
+        adapter.sortData(sort);
+    }
+
+    public void updateMode(Models mode){
+        for(PartyItem item : data){
+            item.setMode(mode);
         }
+        adapter.notifyDataSetChanged();
     }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+    public void setData(ArrayList<PartyItem> data){
+        this.data = data;
+        adapter.clear();
+        adapter.addAll(data);
     }
 }

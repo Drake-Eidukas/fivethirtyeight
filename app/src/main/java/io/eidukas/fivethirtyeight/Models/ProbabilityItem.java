@@ -1,5 +1,7 @@
 package io.eidukas.fivethirtyeight.Models;
 
+import java.util.ArrayList;
+
 import io.eidukas.fivethirtyeight.StateEncoder;
 
 /**
@@ -10,6 +12,15 @@ public class ProbabilityItem {
     private String state;
     private ModelContainer models;
     private Models mode;
+    private ArrayList<PartyItem> partyItems;
+
+    public ArrayList<PartyItem> getPartyItems() {
+        return partyItems;
+    }
+
+    public void setPartyItems(ArrayList<PartyItem> partyItems) {
+        this.partyItems = partyItems;
+    }
 
     public String getState() {
         return state;
@@ -65,7 +76,8 @@ public class ProbabilityItem {
         return models;
     }
 
-    public ProbabilityItem(String state, ModelContainer models, Models model){
+    public ProbabilityItem(String state, ModelContainer models, Models model, ArrayList<PartyItem> partyItems){
+        setPartyItems(partyItems);
         setState(state);
         setModels(models);
         setMode(model);

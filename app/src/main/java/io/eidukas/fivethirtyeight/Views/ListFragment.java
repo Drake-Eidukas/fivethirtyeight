@@ -9,6 +9,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -58,10 +59,16 @@ public class ListFragment extends android.support.v4.app.Fragment {
     /**
      * Instantiate the SwipeRefreshLayout parts, and fetch + load data.
      */
-    public void initializeListView(){
+    private void initializeListView(){
         data = new ArrayList<>();
         adapter = new ProbabilityItemAdapter(activity, data);
         listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                activity.updateDetailView(data.get(position).getPartyItems());
+            }
+        });
 
         // Setup refresh listener which triggers new data loading
         swipeContainer = (SwipeRefreshLayout) activity.findViewById(R.id.swipeContainer);
@@ -77,7 +84,7 @@ public class ListFragment extends android.support.v4.app.Fragment {
         reloadData();
     }
 
-    public void setRefreshingStatus(boolean isRefreshing){
+    private void setRefreshingStatus(boolean isRefreshing){
         swipeContainer.setRefreshing(isRefreshing);
     }
 
@@ -133,7 +140,7 @@ public class ListFragment extends android.support.v4.app.Fragment {
      * Given data, update the model, and then reshow the data.
      * @param toUpdate Model to change values to.
      */
-    public void updateData(ProbabilityObject toUpdate){
+    private void updateData(ProbabilityObject toUpdate){
         if(toUpdate == null || toUpdate.getStates() == null){
             Toast.makeText(activity, "Error fetching data over network!", Toast.LENGTH_SHORT).show();
             return;

@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="io.eidukas.fivethirtyeight.Views.ListFragment"
-    android:id="@+id/list_fragment_layout_id">
+    android:id="@+id/list_fragment_layout_id"
+    style="@style/AppTheme">
     <android.support.v4.widget.SwipeRefreshLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

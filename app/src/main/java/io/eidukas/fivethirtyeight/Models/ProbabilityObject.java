@@ -33,7 +33,11 @@ public class ProbabilityObject {
     public ArrayList<ProbabilityItem> toItemList(Models mode){
         ArrayList<ProbabilityItem> returnList = new ArrayList<>();
         for (StateOdd odd : states){
-            returnList.add(new ProbabilityItem(odd.getState(), odd.getSentences(), mode));
+            ArrayList<PartyItem> items = new ArrayList<>();
+            for(String key: odd.getLatest().keySet()){
+                items.add(new PartyItem(odd.getLatest().get(key)));
+            }
+            returnList.add(new ProbabilityItem(odd.getState(), odd.getSentences(), mode, items));
         }
         return returnList;
     }

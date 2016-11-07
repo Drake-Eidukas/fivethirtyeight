@@ -10,9 +10,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.ArrayList;
+
 import io.eidukas.fivethirtyeight.Models.Models;
+import io.eidukas.fivethirtyeight.Models.PartyItem;
 import io.eidukas.fivethirtyeight.Models.SortType;
 import io.eidukas.fivethirtyeight.R;
+
+import static android.content.res.Configuration.ORIENTATION_LANDSCAPE;
+import static android.content.res.Configuration.ORIENTATION_PORTRAIT;
 
 public class MainActivity extends AppCompatActivity implements SettingsDialog.NoticeDialogListener {
     private Bundle settings = new Bundle();
@@ -20,12 +26,19 @@ public class MainActivity extends AppCompatActivity implements SettingsDialog.No
     private String MODEL_TAG;
     private String SORT_TAG;
     private ListFragment listFragment;
+    private DetailView detailFragment;
     private boolean detailCurrent;
+    private boolean isVertical;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        isVertical = getResources().getConfiguration().orientation == ORIENTATION_PORTRAIT;
+        if(isVertical){
+            setContentView(R.layout.activity_main);
+        } else {
+            setContentView(R.layout.activity_main_horizontal);
+        }
 
         //Load preferences / state from last time.
         PREFS_NAME = this.getResources().getString(R.string.preferences_file);
@@ -37,9 +50,16 @@ public class MainActivity extends AppCompatActivity implements SettingsDialog.No
         settings.putInt(SORT_TAG, sharedPreferences.getInt(SORT_TAG, R.id.alphabetic_button_id));
 
         listFragment = new ListFragment();
+        detailFragment = new DetailView();
 
         getSupportFragmentManager().beginTransaction().add(R.id.fragment_location_id, listFragment).commit();
         detailCurrent = false;
+
+
+        if(!isVertical){
+            detailCurrent = true;
+            getSupportFragmentManager().beginTransaction().add(R.id.fragment_location_secondary_id, detailFragment).commit();
+        }
     }
 
     @Override
@@ -78,7 +98,7 @@ public class MainActivity extends AppCompatActivity implements SettingsDialog.No
 
     @Override
     public void onBackPressed() {
-        if(!detailCurrent){
+        if(!isVertical && !detailCurrent){
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
             dialogBuilder.setMessage("Are you sure you want to exit?");
             dialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -90,7 +110,8 @@ public class MainActivity extends AppCompatActivity implements SettingsDialog.No
             dialogBuilder.setNegativeButton("No", null);
             dialogBuilder.show();
         } else {
-            super.onBackPressed();
+            detailCurrent = false;
+            getSupportFragmentManager().popBackStack();
         }
     }
 
@@ -115,6 +136,7 @@ public class MainActivity extends AppCompatActivity implements SettingsDialog.No
         settings.putInt(SORT_TAG, sortId);
         updateMode();
         listFragment.sortAdapterData(getCurrentSortMode());
+        detailFragment.sortAdapterData(getCurrentSortMode());
     }
 
     /**
@@ -147,6 +169,7 @@ public class MainActivity extends AppCompatActivity implements SettingsDialog.No
      */
     private void updateMode(){
         listFragment.updateMode(getCurrentMode());
+        detailFragment.updateMode(getCurrentMode());
     }
 
     /**
@@ -164,5 +187,23 @@ public class MainActivity extends AppCompatActivity implements SettingsDialog.No
             default:
                 return SortType.STATE_ALPHABETIC;
         }
+    }
+
+    public void updateDetailView(ArrayList<PartyItem> data){
+        Bundle bundle = new Bundle();
+        bundle.putParcelableArrayList(getResources().getString(R.string.probability_item_bundle_arg), data);
+        if(isVertical){
+            detailFragment = new DetailView();
+            detailFragment.setArguments(bundle);
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_location_id, detailFragment)
+                    .addToBackStack("Switch to DetailView")
+                    .commit();
+            detailCurrent = true;
+        } else{
+            detailFragment.setData(data);
+        }
+
     }
 }

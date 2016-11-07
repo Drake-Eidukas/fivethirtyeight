@@ -46,27 +46,25 @@ public class ProbabilityItemAdapter extends ArrayAdapter<ProbabilityItem> {
         probabilityText.setText(getContext().getString(R.string.percent_string, round(getItem(position).getProbability()*100) / 100.0));
         candidateText.setText(getItem(position).getCandidate());
 
-        /**
-         * Should fetch strings from elsewhere.
-         * Error Constant expressions required when I try to do this.
-         */
-        switch(getItem(position).getCandidate()){
+        int colorid;
+        switch(item.getCandidate()){
             case "Trump":
-                convertView.setBackground(new ColorDrawable(ContextCompat.getColor(getContext(), android.R.color.holo_red_dark)));
+                colorid = android.R.color.holo_red_dark;
                 break;
             case "Clinton":
-                convertView.setBackground(new ColorDrawable(ContextCompat.getColor(getContext(), android.R.color.holo_blue_dark)));
+                colorid = android.R.color.holo_blue_dark;
                 break;
             case "McMullin":
-                convertView.setBackground(new ColorDrawable(ContextCompat.getColor(getContext(), android.R.color.holo_purple)));
+                colorid = android.R.color.holo_purple;
                 break;
             case "Johnson":
-                convertView.setBackground(new ColorDrawable(ContextCompat.getColor(getContext(), R.color.yellow)));
+                colorid = R.color.yellow;
                 break;
             default:
-                convertView.setBackground(new ColorDrawable(ContextCompat.getColor(getContext(), android.R.color.white)));
+                colorid = android.R.color.white;
                 break;
         }
+        convertView.setBackground(new ColorDrawable(ContextCompat.getColor(getContext(), colorid)));
 
         return convertView;
     }

@@ -1,9 +1,16 @@
 package io.eidukas.fivethirtyeight.Models;
 
 
-public class PartyItem {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class PartyItem implements Parcelable {
     private PartyModel model;
     private Models mode;
+
+    public PartyItem(PartyModel model){
+        this(model, Models.PLUS);
+    }
 
     public PartyItem(PartyModel model, Models mode){
         setModel(model);
@@ -51,5 +58,34 @@ public class PartyItem {
         return mode;
     }
 
+    /**
+     * Following methods from http://www.parcelabler.com/
+     */
+    protected PartyItem(Parcel in) {
+        model = (PartyModel) in.readValue(PartyModel.class.getClassLoader());
+        mode = (Models) in.readValue(Models.class.getClassLoader());
+    }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeValue(model);
+        dest.writeValue(mode);
+    }
+
+    public static final Parcelable.Creator<PartyItem> CREATOR = new Parcelable.Creator<PartyItem>() {
+        @Override
+        public PartyItem createFromParcel(Parcel in) {
+            return new PartyItem(in);
+        }
+
+        @Override
+        public PartyItem[] newArray(int size) {
+            return new PartyItem[size];
+        }
+    };
 }
